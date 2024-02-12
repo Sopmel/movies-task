@@ -101,7 +101,7 @@ while(runApp){
                     updateFields.genres = newGenres;
                 } else if (newGenressChoice === "add"){
                     let newGenres = p("Enter genres to add(comma-separated): ").split(",");
-                    updateFields.$push = {genres: { $each: newGenres } };
+                    updateFields.$addToSet = {genres: { $each: newGenres } };
                 } else if(newGenressChoice === "remove"){
                     let genresToRemove = p("Enter genres to remove (comma-separated): ").split(",");
                     updateFields.$pullAll = { genres: genresToRemove };
@@ -115,10 +115,10 @@ while(runApp){
                     updateFields.ratings = newRatings;
                 } else if (newRatingsChoice === "add") {
                     let newRatings = p("Enter ratings to add (comma-separated): ").split(",");
-                    updateFields.$addToSet = { ratings: { $each: newRatings } };
+                    updateFields.$pushRatings = { ratings: { $each: newRatings } };
                 } else if (newRatingsChoice === "remove") {
                     let ratingsToRemove = p("Enter ratings to remove (comma-separated): ").split(",");
-                    updateFields.$pullAll = { ratings: ratingsToRemove };
+                    updateFields.$pull = { ratings: { $in: ratingsToRemove } };
                 } else {
                     console.log("Invalid action for ratings. Please choose 'update', 'add', or 'remove'.");
                 }
@@ -132,7 +132,7 @@ while(runApp){
                     updateFields.$addToSet = { cast: { $each: newCast } };
                 } else if(newCastChoice === "remove"){
                     let castToRemove = p("Enter cast to remove(comma-separated): ").split(",");
-                    updateFields.$pullAll = { cast: castToRemove };
+                    updateFields.$pull = { cast: { $in: castToRemove }};
                 } else {
                     console.log("Invalid action for cast. Please choose 'update', 'add', or 'remove'.");
                 }
